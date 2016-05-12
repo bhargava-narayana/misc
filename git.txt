@@ -1,0 +1,2 @@
+git flow: git init -> git clone -> git add ->git commit -> git push
+commit: git commit -m "<msg>"
