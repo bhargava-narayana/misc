@@ -1,1 +1,26 @@
-bash settings: shopt
+bash settings: shopt 
+
+
+CLASS usage: [:CLASS:]
+CLASS   MEMBERS
+Alnum   A-Z, a-z, 0-9
+Alpha   A-Z, a-z
+Blank   Space, Tab
+Cntrl   ASCII characters 0-31 (nonprinting control characters)
+Digit   0-9
+Graph   A-Z, a-z, 0-9 and punctuation
+Lower   a-z
+Print   ASCII characters 32-127 (printable characters)
+Punct   Punctuation (printable characters other than A-Z, a-z, 0-9)
+Space   Space, Tab, LF (10), VT (11), FF (12), CR (13)
+Upper   A-Z
+xdigit  0-9, A-F, a-f
+
+extglob: +([a+z])
+PATTERN         MATCHES
+?(pattern-list) Zero or one of the patterns
+*(pattern-list) Zero or more of the patterns
++(pattern-list) One or more of the patterns
+@(pattern-list) Exactly one of the patterns
+!(pattern-list) Anything except one of the patterns
+
