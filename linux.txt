@@ -1,0 +1,2 @@
+ftp server daemon: vsftpd
+ftp conf:/etc/vsftpd.conf
