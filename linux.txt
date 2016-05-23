@@ -1,2 +1,100 @@
 ftp server daemon: vsftpd
 ftp conf:/etc/vsftpd.conf
+disk utilization: df -h
+
+/arch -> platform code (32/64 bit; big/little endian)
+/kernel /mm -> core kernel (low-level arch support and high level funcions)
+asm-generic -> generic core header functions needed for higher level kernel code/arch unification
+/arch/<arch>/boot/ -> target location of vmlinux.bin
+/arch/<arch>/configs/ -> defconfig example
+/arch/<arch>/include/ -> asm directory
+/arch/<arch>/Kconfig -> standard kernel config data (debug version: Kconfig.debug)
+/arch/<arch>/kernel/head.S -> low-level asembly entry point
+/arch/<arch>/kernel/irq.c -> interrupt bits
+/arch/<arch>/kernel/module.c -> ELF module loader bits
+/arch/<arch>/kernel/process.c -> bits specific to clone()
+/arch/<arch>/kernel/setup.c -> low-level bits for bootmem, sys_call_table, sys_core
+/arch/<arch>/kernel/time.c -> timing info
+/arch/<arch>/lib/ -> various low-level implementations written in fast assembly(e.g. strlen)
+/arch/<arch>/mm -> pgtable.c, init.c (paging_init and mem_init), 
+tlb-miss.c, tlb-score.c, etc.
+
+init sequence:
+1. head.S
+        -lowest level entry: start/_start/start_here, etc.
+        -entered directly after uboot exec
+        -early CPU config; caching, initial stack sufficient for C code, enable HW/SW, MMU, jump to core kernel i.e. start_kernel
+        -provide exception vectors for errors, faults(page faults), etc.
+2. start_kernel
+        -sequentially init kernel
+        -init lockdep/stack canary
+        -boot_cpu_init -> activate 1st processor using hotplug
+        -setup_arch 
+                a. low-level CPU and platform init
+                b. paging(VM) enabled
+                c. data passed in from bootloader(device tree)
+        -setup_command_line -> Use the bootmem allocator to stash away the kernel command line.
+        –sort_main_extable -> Sort the kernel symbol table for later 
+        use by the module loader
+        -mm_init -> Calls arch-specific mem_init, sets up various kernel caches and enables vmalloc.
+        –sched_init -> Does the heavy lifting to prep the scheduler 
+        (allocating using bootmem the runqueus and CFS bits)
+        -early_irq_init -> Allocate the IRQ structs.
+        –init_IRQ -> Architectural counterpart to early_irq_init, 
+        providing platform specific stuff.
+        –timekeeping_init -> Generic function that determines which clocksources to use and configures them.
+        –time_init -> architectural specifics clocksources config
+        –console_init -> Enables the console to that we can begin to output the various kernel boot messages.
+        –kmemleak_init -> Initialize Catalin's nifty leak detector.
+        -calibrate_delay -> Determine the “bogomips”.
+        -fork_init -> Prepare to be able to fork (clone) new tasks.Calls down into the arch code to complete this.
+3. rest_init
+        -Prepare the scheduler (including RCU)
+        -Start the master kernel thread (kthreadd)
+        -Setup the idle task and schedule into init
+        -After that heading toward userspace
+
+debugging and diagonistic tools:
+1. gdb -> attach to remote hardware gdbstub and issue instructions
+2. ftrace -> in-kernel function tracing framework; kernel latencies; kernel hacking-tracers;
+3. kexec/crash/kdump -> boot an aux. kernel if main crashes
+4. ksplice -> dynamically patch running kernel
+5. performance events(perf) -> sys perf metrics; linux-tools pkg
+6. LXR (LinuX cross Referencer)-> http://lxr.sourceforge.net
+
+
+arch ->The arch subdirectory contains all of the architecture specific kernel code. It has further subdirectories, one per supported architecture.
+
+include -> The include subdirectory contains most of the include files needed to build the kernel code. It too has further subdirectories including one for every architecture supported. 
+include/asm -> a soft link to the real include directory needed for this architecture. To change architectures you need to edit the kernel makefile and rerun the Linux kernel configuration program. 
+
+init -> This directory contains the initialization code for the kernel and it is a very good place to start looking at how the kernel works. 
+
+mm -> This directory contains all of the memory management code. The architecture specific memory management code lives down in arch/*/mm/
+
+drivers -> All of the system's device drivers live in this directory. They are further sub-divided into classes of device driver.
+
+ipc -> This directory contains the kernels inter-process communications code. 
+
+modules ->This is simply a directory used to hold built modules. 
+
+fs -> All of the file system code. This is further sub-divided into directories, one per supported file system.
+
+kernel -> The main kernel code. Again, the architecture specific kernel code is in arch/*/kernel. 
+
+net -> The kernel's networking code. 
+
+lib -> This directory contains the kernel's library code. The architecture specific library code can be found in arch/*/lib/. 
+
+scripts -> This directory contains the scripts used when the kernel is configured. 
+
+
+RAMDISK 
+        - ramdisk  image is a file that contains an image of an  ext2  filesystem,  while  a  ramdisk  object  is  an  elf  object  that encapsulates  a  ramdisk  image and  can  be  linked  into  the  kernel.  The  ramdisk  image  is  usually  stored  in  compressed  form.
+        - CONFIG_BLK_DEV_RAM and CONFIG_BLK_DEV_INITRD. 
+        - a ramdisk can be mounted as the root file system.
+
+Service Ports
+VNC     5800
+telnet  3000
+        
