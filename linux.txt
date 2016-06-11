@@ -18,6 +18,10 @@ asm-generic -> generic core header functions needed for higher level kernel code
 /arch/<arch>/lib/ -> various low-level implementations written in fast assembly(e.g. strlen)
 /arch/<arch>/mm -> pgtable.c, init.c (paging_init and mem_init), 
 tlb-miss.c, tlb-score.c, etc.
+/proc/modules -> list of modules loaded onto ketenl
+/proc/kallsyms -> complete list of kernel exported symbols accessable in kernel space/modules
+/etc/cron.hourly,cron.daily,cron.weekly,cron.monthly -> cron jobs
+/etc/crontab -> cron's config files
 
 init sequence:
 1. head.S
@@ -95,6 +99,35 @@ RAMDISK
         - a ramdisk can be mounted as the root file system.
 
 Service Ports
-VNC     5800
+VNC     5800/5900
 telnet  3000
-        
+
+ELF -> Executable Linkable Format; similar to bin but with additional information.
+LKCD -> Linux Kernel Crash Dump; /etc/rc.sysinit
+
+Pseduo Terminals:       Pseudo terminals are pairs of devices such as /dev/ptyp3 and /dev/ttyp3. There is no physical device directly associated with either of them. If a program treats ttyp3 like it was a serial port, what is read and written to that port appears on the other member of the pair ptyp3 which another program uses to read and write to. Thus two programs talk to each other via this method and one program on ttyp3 thinks it's talking to a serial port.
+
+terminals (in /dev):
+ttyI<N>   ISDN drvr pkg. Emulates a modem
+tty<N>    console/terminals (tty - teletypes)      
+vc/<N>    virtual consoles. Alias to ttyN
+pts       filesystems of type devpts/mounted filesystems
+pty/pts   pseduo terminals
+ttyS<N>   serial console/COM<N> port
+
+mknod:  create a device (ls -l /dev provides major/minor numbers of existing devices)
+/etc/ioctl.save -> stores stty settings for use in console single user modew
+ps -l - list termianls in use
+ltsp - Linux Terminal Server Project / terminal server 
+
+setserial-terminal util thats deals with actual serial ports
+stty-terminal util that abstracts actual access method
+strace -> util to show all syscalls made by a prg.(e.g gcc -Wall -o hello hello.c)
+
+generate tags: make tags
+__exit : not needed in LKM since it has not effect. Its needed by modules built into the kernel
+cleanup : needed by LKM but not builtin modules. used on rmmod
+multi file modules: in Makefile obj-m += x.o  x-objs := y.o z.o
+LKM/modules share kernel codespace
+monolithic kernel/modules share kernel codespace -> linux
+micro kernels/modules get own isolated codespace -> GNU Hurd, QNX Neutrino

@@ -9,5 +9,21 @@ delete a branch: git branch -d <branch_name>
 current branch: git branch -l 
 list branches: git tag -l
 
+undo all modifications: git checkout -f
+update to latest/fast-forward merge: git pull
+undo recent commit: git reset HEAD=n where n # of prev commits
+update  tags: git fetch --tags $URL
+tag a commit: git tag tagName
+
+list changes: git diff [HEAD] [HEAD] changes since last commit
+summary of changes: git status
+list changelist: git log
+diff between branch and master: git diff master..HEAD
+1 line summary between branch and master: git shortlog master..HEAD
+
+merge changes between 1 branch and another(A merged to M): git checkout M; git merge A
+tmp checkout another branch: git checkout -b tmp <branch>
+
 current branch:git log --oneline -decorate
 branching history: git log --oneline --decorate --graph --all
+

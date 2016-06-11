@@ -24,3 +24,11 @@ PATTERN         MATCHES
 @(pattern-list) Exactly one of the patterns
 !(pattern-list) Anything except one of the patterns
 
+stdout to file: <cmd> > filename
+stderr to file: <cmd> 2> filename
+stdout to stderr: <cmd> 1>&2
+stderr to stdout: <cmd> 2>&1
+stdout and stderr to file: <cmd> &> filename NOTE:filename= /dev/null for absolute silence on cmd exec
+
+
+
