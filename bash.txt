@@ -30,5 +30,28 @@ stdout to stderr: <cmd> 1>&2
 stderr to stdout: <cmd> 2>&1
 stdout and stderr to file: <cmd> &> filename NOTE:filename= /dev/null for absolute silence on cmd exec
 
+UTILS:
+setterm -> config terminal
+ps aux -> process irrespective of terminal, users in user friendly format
+ps axjf -> process in tree format
+pgrep <process> -> PID's of process
+tset/setterm -> terminal config
+setserial/stty -> serial/terminal/UART dev drvr config
+tty -> current tty/serial
+ul -> underline cmd
+infocmp -> current terminfo(terminal) settings
+gitkeys -> show bytes sent by each key
+write/mesg/talk -> communicate between users
 
 
+ctrl+S/^S -> no scroll
+ctrl+Q/^Q -> kill
+^Z -> suspend a program; 
+fg -> wake suspended program
+^V -> send next character through to terminal dev drvr without interpretation; ASCII value echoed
+
+
+system will try loading the profile by name in this order:
+   .bash_profile
+   .bash_login
+   .profile 

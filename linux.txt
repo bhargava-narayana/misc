@@ -22,6 +22,24 @@ tlb-miss.c, tlb-score.c, etc.
 /proc/kallsyms -> complete list of kernel exported symbols accessable in kernel space/modules
 /etc/cron.hourly,cron.daily,cron.weekly,cron.monthly -> cron jobs
 /etc/crontab -> cron's config files
+/usr/share/doc -> README's for installed kernel.
+/etc/init.d or /etc/rc.d -> init config
+
+/proc -> directory preceded /sys, and it has basically all details about running processes. Over time, more files were added to it, mostly "virtual" ones, which don't actually exist, but are created on the fly if you try to access them.
+
+/sys -> is more modern. introduced more order and a better structure than provided by the older /proc. Many of the files (but not all) in /proc are duplicated in /sys, and whenever possible, you should pick the files in the latter directory.Subdirectories:
+        /sys/block/ -> an entry pointing to each block device.
+        /sys/bus/ -> directories for each bus type, and within each, two subdirectories
+        /sys/bus/devices/ -> has a directory for each device, pointing to the device's directory in /root
+        /sys/bus/drivers/ -> has a directory for each driver that was loaded for devices on the given bus.
+        /sys/class/ -> has directories for each type of object; some examples are block/, graphics/, net/, sound/ and so on.
+        /sys/dev/ -> provides directories for each type of device (for example, dev/block/ or dev/char/), each with directories for each appropriate device.
+        /sys/devices/ -> contains the global device hierarchy, with every physical device in your system.
+        /sys/firmware/ -> includes directories for firmware-specific objects; for example, acpi/ or memmap/, but the particular directories in your own machine depend on the firmware drivers in your kernel.
+        /sys/fs/ -> has a directory for each filesystem type in your machine, each with further directories for each specific device; for example, I have /sys/fs/ext4/sda2, because the disk mounted as /dev/sda2 uses ext4.
+        /sys/kernel/ -> has several files related to the currently loaded kernel.
+        /sys/module/ -> has a subdirectory for each and every module loaded into the kernel.
+        /sys/power/ -> represents the power subsystem.
 
 init sequence:
 1. head.S
@@ -131,3 +149,16 @@ multi file modules: in Makefile obj-m += x.o  x-objs := y.o z.o
 LKM/modules share kernel codespace
 monolithic kernel/modules share kernel codespace -> linux
 micro kernels/modules get own isolated codespace -> GNU Hurd, QNX Neutrino
+
+setsockopt/getsockopt -> set/get socket options (e.g. TCP_KeepAlive)
+sg -> SCSI generic (dev drvr)
+
+lsblk -> list all block devices
+lscpu -> display  CPUs, cores, threads and more.
+lsdev -> Displays data about all devices of which the system is aware.
+lshw ->  Lists general hardware data—gives information on every detail of your hardware
+lspci -> Displays information about PCI buses 
+lsscsi-> Provides information on all SCSI devices or hosts
+lsusb -> Generates information about USB buses in your box and devices 
+dmidecode -> dump DMI/SMBIOS
+hwinfo ->Dump hardware info
