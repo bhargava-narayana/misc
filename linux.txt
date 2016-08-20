@@ -2,6 +2,8 @@ ftp server daemon: vsftpd
 ftp conf:/etc/vsftpd.conf
 disk utilization: df -h
 
+/<subsystem> (e.g: /mm, /kernel): source code for run-time linkable modules; abstracted components of the subsystems.
+/arch/<platform>/<subsystem> : low level (harware aware) modules for subsystems (eg. mm, kernel); initializes hardware using parameters at startup
 /arch -> platform code (32/64 bit; big/little endian)
 /kernel /mm -> core kernel (low-level arch support and high level funcions)
 asm-generic -> generic core header functions needed for higher level kernel code/arch unification
@@ -29,17 +31,31 @@ tlb-miss.c, tlb-score.c, etc.
 
 /sys -> is more modern. introduced more order and a better structure than provided by the older /proc. Many of the files (but not all) in /proc are duplicated in /sys, and whenever possible, you should pick the files in the latter directory.Subdirectories:
         /sys/block/ -> an entry pointing to each block device.
-        /sys/bus/ -> directories for each bus type, and within each, two subdirectories
+        /sys/bus/ -> directories for each bus type, and within each, two subdirectories:
         /sys/bus/devices/ -> has a directory for each device, pointing to the device's directory in /root
         /sys/bus/drivers/ -> has a directory for each driver that was loaded for devices on the given bus.
         /sys/class/ -> has directories for each type of object; some examples are block/, graphics/, net/, sound/ and so on.
         /sys/dev/ -> provides directories for each type of device (for example, dev/block/ or dev/char/), each with directories for each appropriate device.
         /sys/devices/ -> contains the global device hierarchy, with every physical device in your system.
-        /sys/firmware/ -> includes directories for firmware-specific objects; for example, acpi/ or memmap/, but the particular directories in your own machine depend on the firmware drivers in your kernel.
+        /sys/firmware/ -> includes directories for firmware-specific objects; for example, acpi/ or memmap/
         /sys/fs/ -> has a directory for each filesystem type in your machine, each with further directories for each specific device; for example, I have /sys/fs/ext4/sda2, because the disk mounted as /dev/sda2 uses ext4.
         /sys/kernel/ -> has several files related to the currently loaded kernel.
         /sys/module/ -> has a subdirectory for each and every module loaded into the kernel.
         /sys/power/ -> represents the power subsystem.
+
+/boot/config-$(uname -r) or /proc/config.gz -> running kernel config
+
+init overview:
+1. 2nd CPU init as slave if present.
+2. hardware specific init performed.
+3. paging sys init.
+4. traps set with platform dependent call
+5. IRQ's init with another platform dependent call
+6. scheduling sys init
+7. modules init based on command line args
+8. numerous features of abstract FS init
+9. n/w module init
+10. inter-process communication (IPC) module init
 
 init sequence:
 1. head.S
@@ -162,3 +178,19 @@ lsscsi-> Provides information on all SCSI devices or hosts
 lsusb -> Generates information about USB buses in your box and devices 
 dmidecode -> dump DMI/SMBIOS
 hwinfo ->Dump hardware info
+
+/mm (memory manager) : 
+        - mm_struct - main mem manager data struct
+        - vm_struct - virtual mem struct
+        - communicates with FS using shared data and procedure calls (swap information struct and I-node struct)
+
+/kernel: responsible for duties relating to managing processes.
+        - after init communicates with /mm with procedure calls for
+                1. alloc mem for modules that are loaded and processes that are forked
+                2. gather sys mem usage info
+                3. verify ownership of various portions of mem during sys calls (e.g. sys_signal) using  verify_area
+/arc/<platform>/kernel: responsible for interrupt mgmt, low-level process creation/termination, shutdown, BIOS interaction, etc. 
+        
+        
+               
+        
