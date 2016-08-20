@@ -1,0 +1,33 @@
+field -> single entry in a line (whitespace, spaces, and tab)
+record -> lines (fields form a record) 
+
+usage : 
+        awk 'xxxxxxxx'
+                ctrl+d or ctrl+z ->  to end
+        flags:
+                -f <filename>
+                -F xxx : use xxx as field seperator(overrides default field seperator)
+                         -F t -> use tab
+                         -F '[xxx]' -> regex
+                -v : specify awk variable in cmd line 
+                 
+
+              
+
+builtin variables:
+        NF : # of fields/count
+        NR : line/record #
+        FILENAME : file being processed
+        FNR : file record/line #
+        FS : field seperator
+        RS : Record seperator
+        $0 : whole line
+        $<n> : nth field in record
+        OFS : output field seperator
+        ORS : output record seperator
+         
+
+         
+
+
+
