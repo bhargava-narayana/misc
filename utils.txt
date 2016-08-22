@@ -1,0 +1,6 @@
+sed: strength in char by char file manipulation
+
+replace char: sed 's/<current_char>/<replacement_char>'
+remove char from file: sed 's/\<char_pattern>//' <filename>
+
+

@@ -1,6 +1,8 @@
 field -> single entry in a line (whitespace, spaces, and tab)
 record -> lines (fields form a record) 
 
+awk: strength in field and record level manipulation
+
 usage : 
         awk 'xxxxxxxx'
                 ctrl+d or ctrl+z ->  to end
@@ -11,10 +13,7 @@ usage :
                          -F '[xxx]' -> regex
                 -v : specify awk variable in cmd line 
                  
-
-              
-
-builtin variables:
+-builtin variables:
         NF : # of fields/count
         NR : line/record #
         FILENAME : file being processed
@@ -25,9 +24,52 @@ builtin variables:
         $<n> : nth field in record
         OFS : output field seperator
         ORS : output record seperator
+
+-Excel stores extra metadata in CSV.
+        -RS ="\r"
+        -for " in CSV; stored as """: 
+                for( i=1; i <=NF; i++) {
+                        gsub("^\"|\"$", "", $i);  ->begin of field a " or ending of field ";replace with empty string; handles " fields
+                        gsub("\"\"","\"", $i)  ->replace "" with ";handles escape sequence
+                }
+-look for file: /\.<filetype>$<operation>
+-delete a field: $<field_value>=""
+-math functions:
+        int(x) -> return integer portion of x
+        rand() -> random floating point value b/w 0 and <1
+        srand([x]) -> seeds rand() with x
+        sqrt(x) -> square root of x
+        sin(x)
+        cos(x)
+        atan2(y,x) -> value of pi= atan2(0,-1)
+        log(x)
+        exp(x) -> exponential of x
+-arrays
+        -has associative array -> associates value of an element with arbitary value
+        -1D array only (use associative array to simulate multi-dimensional array)
+        -for ( index in array ) {
+                body
+        } -> order not guaranteed
+        
+-string functions
+        length([string]) -> no arg==>length of $0 
+        index(string, target) -> 0 if no result
+        match(string, exp) -> set RSTART to location of match; RLENGTH to length of match
+        substr(string, start,[length]) -> returns sub-string(start arg) with length arg
+        sub(regexp, new_value,[string]) -> search string arg(variable, array or field)  with regexp arg and replaces it with new_value; 1st occurrence  
+        gsub( regexp, new_value, [string]) -> global sub (all occurrences) 
+        split(string, array, [regexp]) -> split array arg into pieces containing string arg using regexp (else FS); returns # of pieces
+
+-use [option_1option_2] for additional optional search. eg. sub(/the[ym],"all of them") looks for the, them and they patterns and replaces with "all of them"
+ 
+
+**sort cmd**
+-reverse: sort -r
+-based on numerical value: sort -n
+-use nth field to sort: sort -k n
          
 
-         
+
 
 
 
