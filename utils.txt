@@ -1,6 +1,12 @@
 sed: strength in char by char file manipulation
+grep: global regular expression print
 
 replace char: sed 's/<current_char>/<replacement_char>'
 remove char from file: sed 's/\<char_pattern>//' <filename>
+
+bootable USB (OS-X):
+1. diskUtil list
+2. diskUtil unMountDisk /dev/disk3
+3.sudo dd if=~/Downloads/ubuntu-16.04-preinstalled-server-armhf+raspi2.img of=/dev/rdisk3 bs=32MB  -->ctrl+T for progress 
 
 

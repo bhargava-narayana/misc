@@ -54,14 +54,17 @@ usage :
 -string functions
         length([string]) -> no arg==>length of $0 
         index(string, target) -> 0 if no result
-        match(string, exp) -> set RSTART to location of match; RLENGTH to length of match
+        match(string, regex) -> set RSTART to location of match; RLENGTH to length of match
         substr(string, start,[length]) -> returns sub-string(start arg) with length arg
-        sub(regexp, new_value,[string]) -> search string arg(variable, array or field)  with regexp arg and replaces it with new_value; 1st occurrence  
-        gsub( regexp, new_value, [string]) -> global sub (all occurrences) 
-        split(string, array, [regexp]) -> split array arg into pieces containing string arg using regexp (else FS); returns # of pieces
+        sub(regex, new_value,[string]) -> search string arg(variable, array or field)  with regexp arg and replaces it with new_value; 1st occurrence  
+        gsub( regex, new_value, [string]) -> global sub (all occurrences) 
+        split(string, array, [regex]) -> split array arg into pieces containing string arg using regexp (else FS); returns # of pieces
 
 -use [option_1option_2] for additional optional search. eg. sub(/the[ym],"all of them") looks for the, them and they patterns and replaces with "all of them"
- 
+-printf (format, vlaue...)
+        -%s -> string
+        -%d -> integer
+        -%f -> floating; %6.2f=>123.12; %0f=> left 0 padded float
 
 **sort cmd**
 -reverse: sort -r
