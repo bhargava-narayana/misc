@@ -191,6 +191,6 @@ hwinfo ->Dump hardware info
                 3. verify ownership of various portions of mem during sys calls (e.g. sys_signal) using  verify_area
 /arc/<platform>/kernel: responsible for interrupt mgmt, low-level process creation/termination, shutdown, BIOS interaction, etc. 
         
-        
+/var/lib/apt/lists : ppa location        
                
         

@@ -1,12 +1,51 @@
 sed: strength in char by char file manipulation
 grep: global regular expression print
+ |-egrep: extended grep;grep -E
+ |-fgrep: fast grep; for speed; no RegEx; grep -F
+ |-rgrep: recursive grep; grep -r
 
 replace char: sed 's/<current_char>/<replacement_char>'
 remove char from file: sed 's/\<char_pattern>//' <filename>
+
+tail -n<NUM> <filename>: last NUM of lines of filename
+tail -f <filename>: follow filename; output appended as filename grows
 
 bootable USB (OS-X):
 1. diskUtil list
 2. diskUtil unMountDisk /dev/disk3
 3.sudo dd if=~/Downloads/ubuntu-16.04-preinstalled-server-armhf+raspi2.img of=/dev/rdisk3 bs=32MB  -->ctrl+T for progress 
+
+grep args:
+        -i -> ignore case
+        -f <filename> -> source pattern from filename
+        -n -> prefix line # for each result
+        -A <NUM> -> print NUM of lines trailing after matching line
+        -B <NUM> -> print NUM of lines trailing before matching line
+        -v -> invert match
+        -c -> print number of match occurences
+        -l -> print files containg matches
+        -h -> suppress filenames in output
+        -x -> print eXact matches only
+        -"<pattern>$" -> look for lines ending with pattern
+        -"<pattern>?" -> look for lines starting with pattern
+
+RegEx:        
+        -/^<pattern>/ -> pattern at begining of line
+        -/[^<pattern>]/ -> when used in class(i.e. []) its complement of pattern;
+        -/<pattern>$ -> pattern at end of line
+        -^$ -> count empty lines 
+        -[0-9] or [a-z] or[a-mA-M] -> range/set input; character classes (multiple classes means OR operator/i.e. either 1 of the classes occur at a particular spot); shortcuts: \s=whitespace; \d=digits
+        -/<pattern>/ -> pattern input
+        -/\\/ -> escape character for special characters; eg: for \=/\\/; .=/\./
+        -<pattern>{<NUM>} -> pattern is repeated NUM of times; eg. pp or p{2}
+        -/./ -> period is wildcard; can stand for any character
+        -/.<pattern>/ -> number of "." indicates the position of pattern
+        -/(<pattern_1>) (<pattern_2>)/ -> grouping's; each literal character or positional pattern is an atom in RegEx
+        -/<pattern_1> | <pattern_2>/ -> alternation operator; specify either of 2 whole subexpressions occur in a position
+        -/<pattern>*/ -> some or none occurence of pattern;
+
+
+
+
 
 
