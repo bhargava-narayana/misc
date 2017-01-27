@@ -45,6 +45,8 @@ tlb-miss.c, tlb-score.c, etc.
 
 /boot/config-$(uname -r) or /proc/config.gz -> running kernel config
 
+/usr/share/snmp/mibs -> readable MIB (Management Information Base) for SNMP
+
 init overview:
 1. 2nd CPU init as slave if present.
 2. hardware specific init performed.
