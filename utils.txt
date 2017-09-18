@@ -44,6 +44,21 @@ RegEx:
         -/<pattern_1> | <pattern_2>/ -> alternation operator; specify either of 2 whole subexpressions occur in a position
         -/<pattern>*/ -> some or none occurence of pattern;
 
+GDB:
+	--args -> pass args to program instead of gdb
+	thread apply all bt -> dump backtrace of all thrads
+	--batch --ex r --ex bt --ex q --args  -> if program bombs get a backtrace
+	break [file:]function
+
+
+
+
+
+q
+
+
+
+
 
 
 
