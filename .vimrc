@@ -59,10 +59,13 @@ set expandtab
 set tags=./tags;
 set smartindent
 set ic
-set cursorline
-set cursorcolumn
+"set cursorline
+"set cursorcolumn
 "set hi Cursorline cterm=NONE ctermbg=white ctermfg=darkred guibg=white guifg=darkred
 "set hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+set laststatus=2
+set statusline+=%F%=%l,%-20c
+"set ruler
 filetype on
 filetype indent on
 
