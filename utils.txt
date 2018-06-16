@@ -50,17 +50,3 @@ GDB:
 	--batch --ex r --ex bt --ex q --args  -> if program bombs get a backtrace
 	break [file:]function
 
-
-
-
-
-q
-
-
-
-
-
-
-
-
-

@@ -19,6 +19,13 @@ ip route show
 DNS info 
 host -a <address>
 
+open n/w connections
+sudo lsof -Pni
+
+mount remote dir via ssh
+sshfs remote_host:/directory mountpoint
+fusermount -u mountpoint
+
 ###linux locations
 
 1st boot file
@@ -30,5 +37,9 @@ n/w config scripts
 restart NIC config
 /etc/init.d/network restart
 
-
+###misc
+backup file
+cp file{,.bak} 
+        or
+cp file{,.$(date +%F)}
 
