@@ -1,0 +1,4 @@
+#nfs mounts
+sudo mount --bind /media/bhargava/ext_files /export/ext_files
+sudo mount --bind /media/bhargava/ext_software /export/ext_software
+showmount -e 192.168.0.106
