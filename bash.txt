@@ -29,6 +29,8 @@ stderr to file: <cmd> 2> filename
 stdout to stderr: <cmd> 1>&2
 stderr to stdout: <cmd> 2>&1
 stdout and stderr to file: <cmd> &> filename NOTE:filename= /dev/null for absolute silence on cmd exec
+disable redirection to existing file: set -o noclobber
+enable redirection to existing file: set +o noclobber
 
 UTILS:
 setterm -> config terminal
