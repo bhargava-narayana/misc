@@ -43,31 +43,37 @@ set ignorecase		" Do case insensitive matching
 set smartcase		" Do smart case matching
 set incsearch		" Incremental search
 "set autowrite		" Automatically save before commands like :next and :make
-"set hidden             " Hide buffers when they are abandoned
+"set hidden            " Hide buffers when they are abandoned
 set mouse=a		" Enable mouse usage (all modes)
+set hlsearch		" highlight search
+set number		" show line numbers
 
 " Source a global configuration file if available
 if filereadable("/etc/vim/vimrc.local")
   source /etc/vim/vimrc.local
 endif
 
-set number
-set expandtab
-"set shiftwidth=2
-"set tabstop=2
-"set softtabstop=2
-set tags=./tags;
-set smartindent
-set ic
+set expandtab		" tabs to spaces
+set shiftwidth=4	" shift command indentation
+set tabstop=4		" tab key indentation
+set softtabstop=4	" number of spaces per tab in edit mode
+set smartindent	" smart indent at start of line
+
+set tags=./tags;	" ctags support
+
+" colorize cursors location
 "set cursorline
 "set cursorcolumn
 "set hi Cursorline cterm=NONE ctermbg=white ctermfg=darkred guibg=white guifg=darkred
 "set hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
-set laststatus=2
-set statusline+=%F%=%l,%-20c
-"set ruler
-filetype on
-filetype indent on
+
+set laststatus=2	" show statusline always
+"set statusline+=%F%=%l,%-20c	" format of the statusline
+
+"set ruler		" show line and column number of cursor
+
+filetype on		" filetype detection
+"filetype indent on	" config indentation based on filetype
 
 let Tlist_Auto_Open=1
 "let Tlist_Close_On_Select=1
