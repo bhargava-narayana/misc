@@ -195,4 +195,9 @@ hwinfo ->Dump hardware info
         
 /var/lib/apt/lists : ppa location        
                
-        
+online accounts mounts:
+1. mount | grep gv
+2. gio <options>
+
+find files in a directory: find . -maxdepth 1 -name "<regex>" -print
+find and delete files in a dir: find . -maxdepth 1 -name "<regex>" -exec rm {} \;

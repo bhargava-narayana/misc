@@ -1,0 +1,10 @@
+list images:
+    lxc image list images:
+create container:
+    lxc launch ubuntu:20.04/amd64 <container_name>
+image search:
+    lxc image list images: debian amd64
+change existing disk size
+    lxc config device override <container> root size=100GB
+change memory size
+    lxc config set limits.memory <container> 8GB
